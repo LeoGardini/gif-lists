@@ -1,0 +1,25 @@
+{
+  "extends": ["plugin:react/jsx-runtime"],
+  "overrides": [
+    {
+      "rules": {
+        "sonarjs/no-identical-functions": "off"
+      },
+      "files": ["*.ts"]
+    },
+    {
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/consistent-type-imports": "off"
+      },
+      "files": ["*.d.ts"]
+    },
+    {
+      "rules": {
+        "react/prop-types": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+      },
+      "files": ["*.tsx"]
+    }
+  ]
+}
