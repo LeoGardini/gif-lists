@@ -65,7 +65,7 @@ function GifsList() {
           />
         </Grid>
       </Grid>
-      <ImageList cols={3} rowHeight="auto" variant="woven">
+      <ImageList cols={3} rowHeight="auto" variant="quilted">
         {gifsOptions}
       </ImageList>
     </div>
