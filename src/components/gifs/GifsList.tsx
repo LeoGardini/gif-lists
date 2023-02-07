@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Grid, ImageList, ImageListItem, TextField } from "@mui/material";
 import { useEffect, useState, useDeferredValue, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useDebouncer from "../../hooks/useDebouncer";
@@ -9,6 +9,7 @@ import {
   getGifsStatus,
   searchGifs,
 } from "../../redux/features/gifSlice";
+import CardItem from "../CardItem";
 
 function GifsList() {
   const dispatch = useDispatch();
@@ -37,25 +38,36 @@ function GifsList() {
   if (gifsStatus === "loading") gifsOptions = <p>Loading...</p>;
   else if (gifsStatus === "failed") gifsOptions = <p>{gifsError}</p>;
   else
-    gifsOptions = (
-      <ul>
-        {gifs.map((gif) => (
-          <li key={gif.id}>
-            <p>{gif.title}</p>
-            <img src={gif.images?.original.url} />
-          </li>
-        ))}
-      </ul>
-    );
+    gifsOptions = gifs.map((gif) => (
+      <Grid item xs={12} sm={6}>
+        <ImageListItem key={gif.id}>
+          <Grid container>
+            <Grid item xs={12}>
+              <h2>{gif.title}</h2>
+            </Grid>
+            <Grid item xs={12}>
+              <img src={gif.images?.original.url} alt={gif.title} />
+            </Grid>
+          </Grid>
+        </ImageListItem>
+      </Grid>
+    ));
 
   return (
     <div>
       <p>Gifs List</p>
-      <TextField
-        variant="outlined"
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      {gifsOptions}
+      <Grid container>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Grid>
+      </Grid>
+      <ImageList cols={3} rowHeight="auto" variant="quilted">
+        {gifsOptions}
+      </ImageList>
     </div>
   );
 }

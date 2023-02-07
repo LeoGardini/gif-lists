@@ -6,6 +6,7 @@ function CardItem({ children }: { children: JSX.Element }) {
       elevation={0}
       sx={{
         padding: 3,
+        marginTop: 5,
         display: "flex",
         borderRadius: "1.5rem",
         boxShadow: "rgb(90 114 123 / 20%) 0px 5px 5px 0px",
