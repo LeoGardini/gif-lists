@@ -1,11 +1,12 @@
 import {
+  Container,
   Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   TextField,
 } from "@mui/material";
-import { useEffect, useState, useDeferredValue, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useDebouncer from "../../hooks/useDebouncer";
 import {
@@ -15,7 +16,6 @@ import {
   getGifsStatus,
   searchGifs,
 } from "../../redux/features/gifSlice";
-import CardItem from "../CardItem";
 
 function GifsList() {
   const dispatch = useDispatch();
@@ -38,23 +38,21 @@ function GifsList() {
 
   useEffect(() => {
     if (debouncedSearch) handleSearchGifs();
-  }, [debouncedSearch, dispatch]);
+  }, [debouncedSearch]);
 
   let gifsOptions;
   if (gifsStatus === "loading") gifsOptions = <p>Loading...</p>;
   else if (gifsStatus === "failed") gifsOptions = <p>{gifsError}</p>;
   else
     gifsOptions = gifs.map((gif) => (
-      <>
-        <ImageListItem key={gif.id}>
-          <img src={gif.images?.original.url} alt={gif.title} />
-          <ImageListItemBar title={gif.title} />
-        </ImageListItem>
-      </>
+      <ImageListItem key={gif.id}>
+        <img src={gif.images?.original.url} alt={gif.title} loading="lazy" />
+        <ImageListItemBar title={gif.title} />
+      </ImageListItem>
     ));
 
   return (
-    <div>
+    <Container>
       <h1>Gifs List</h1>
       <Grid container>
         <Grid item xs={12}>
@@ -68,7 +66,7 @@ function GifsList() {
       <ImageList cols={3} rowHeight="auto" variant="quilted">
         {gifsOptions}
       </ImageList>
-    </div>
+    </Container>
   );
 }
 
